@@ -66,6 +66,27 @@ a { color: var(--brass); }
 .err li b { color: var(--ink); font-weight: 600; }
 @media (max-width: 720px) { .errs { grid-template-columns: 1fr; } }
 
+/* fine print */
+.caveats { list-style: none; counter-reset: c; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+.caveats li { counter-increment: c; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding-block: 20px;
+  border-top: 1px solid rgba(159,179,195,.14); color: var(--mist); font-size: 15.5px; }
+.caveats li::before { content: counter(c); font: italic 500 34px/1 var(--display); color: var(--rust); }
+.caveats li b { display: block; color: var(--ink); font: 500 20px/1.3 var(--display); margin-bottom: 4px; }
+@media (max-width: 720px) { .caveats { grid-template-columns: 1fr; } }
+
+/* logbook: a brass hairline down the left, entries hung off it */
+.log { list-style: none; margin: 44px 0 0; padding: 0 0 0 28px; position: relative; display: grid; gap: 26px; max-width: 760px; }
+.log::before { content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 1px; background: linear-gradient(180deg, var(--brass), rgba(226,180,92,.15)); }
+.log li { position: relative; display: grid; gap: 4px; }
+.log li::before { content: ""; position: absolute; left: -27px; top: 7px; width: 11px; height: 11px; border-radius: 50%; background: var(--sea); border: 1.5px solid var(--brass); }
+.log li.win::before { background: var(--brass); }
+.log .when { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font: 400 12px/1 var(--mono); color: var(--mist); letter-spacing: .06em; }
+.log .kind { font: 500 10.5px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 4px 7px; border-radius: 4px; }
+.kind.win { color: var(--foam); background: rgba(111,214,192,.12); } .kind.dead { color: var(--rust); background: rgba(224,119,95,.12); }
+.kind.fix { color: var(--brass); background: rgba(226,180,92,.12); } .kind.start { color: var(--ink); background: rgba(233,238,242,.1); }
+.log h3 { font-size: 22px; line-height: 1.25; }
+.log p { margin: 0; color: var(--mist); font-size: 15.5px; max-width: 62ch; }
+
 /* funnel */
 .funnel { display: grid; gap: 14px; margin-top: 44px; }
 .frow { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 20px; align-items: center; }
@@ -176,9 +197,9 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
     <p class="lede">Keel is a system I'm building to trade small amounts of money by rules instead of hunches. Most of the work is testing ideas until they break. The few that survive run with practice money first.</p>
     <div class="stats">
       <div class="stat"><b class="num" data-count="136">136</b><span>strategy versions tested and written down, failures included</span></div>
-      <div class="stat"><b class="num" data-count="21">21</b><span>experiments, each with pass rules set before the test</span></div>
-      <div class="stat"><b class="num" data-count="4">4</b><span>systems running every day with practice money</span></div>
-      <div class="stat"><b class="num" data-count="380">380</b><span>automated safety checks that run on every change</span></div>
+      <div class="stat"><b class="num" data-count="22">22</b><span>experiments, each with pass rules set before the test</span></div>
+      <div class="stat"><b class="num" data-count="3">3</b><span>practice books running daily; a 4th starts at month-end</span></div>
+      <div class="stat"><b class="num" data-count="380">380</b><span>automated tests that run on every change</span></div>
     </div>
   </div>
 </section>
@@ -201,7 +222,7 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
       <div class="err">
         <div class="eyebrow" style="color:var(--foam)">Computer error, removed</div>
         <ul>
-          <li><b>Checked twice.</b> Two separate machines run the same day and must agree to the cent. Today: they match.</li>
+          <li><b>Checked twice.</b> Two separate machines run each day and must reach the same answer. Today they match.</li>
           <li><b>Built twice.</b> Anything heading to real money gets a second, independent version that has to match the first.</li>
           <li><b>A separate referee.</b> Safety rules live apart from the trading logic and can veto any order, with 380 tests behind them.</li>
         </ul>
@@ -219,7 +240,7 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
       <div class="frow"><div class="lab"><b>Versions tested</b>every variation logged</div><div class="bar"><i style="--w:100%;--c:#6a87a0"></i><em class="num">136</em></div></div>
       <div class="frow"><div class="lab"><b>Experiments run</b>a question with rules fixed up front</div><div class="bar"><i style="--w:56%;--c:#8fa7b9"></i><em class="num">21</em></div></div>
       <div class="frow"><div class="lab"><b>Passed every test</b>including data held back</div><div class="bar"><i style="--w:30%;--c:var(--brass)"></i><em class="num">7</em></div></div>
-      <div class="frow"><div class="lab"><b>Running with practice money</b>3 months minimum before anything real</div><div class="bar"><i style="--w:20%;--c:var(--foam)"></i><em class="num">4</em></div></div>
+      <div class="frow"><div class="lab"><b>Running with practice money</b>3 months minimum before anything real</div><div class="bar"><i style="--w:16%;--c:var(--foam)"></i><em class="num">3</em></div></div>
       <div class="frow"><div class="lab"><b>Trading real money</b>not yet, by design</div><div class="bar"><i style="--w:3%;--c:var(--faint)"></i><em class="num">0</em></div></div>
     </div>
   </div>
@@ -251,11 +272,26 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
     <h2 style="font-size:clamp(32px,5vw,52px);margin-top:14px">Most ideas fail. That's the job.</h2>
     <p class="lede">Each one gets a written plan and pass rules before a single test runs, so a good-looking result can't be cherry-picked afterwards.</p>
     <div class="filters" role="group" aria-label="Filter experiments">
-      <button type="button" id="f-all" data-f="all" aria-pressed="true">All 21</button>
+      <button type="button" id="f-all" data-f="all" aria-pressed="true">All 23</button>
       <button type="button" id="f-pass" data-f="pass" aria-pressed="false">Passed</button>
       <button type="button" id="f-fail" data-f="fail" aria-pressed="false">Failed</button>
     </div>
     <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="fine">
+  <div class="wrap">
+    <div class="eyebrow">What could be wrong</div>
+    <h2 style="font-size:clamp(32px,5vw,52px);margin-top:14px">The fine print, in large print</h2>
+    <p class="lede">Good results deserve suspicion, ours most of all. These are the reasons to stay humble, and we keep them in view.</p>
+    <ol class="caveats">
+      <li><b>Luck looks like skill.</b> Test 136 versions and a few will shine by chance. Once we adjust for how many we tried, even our best results are less certain than the headline numbers.</li>
+      <li><b>New data is harder.</b> The crypto system scored a Sharpe ratio of 1.55 on the years it was designed on, and 0.47 on the years held back. Still positive, but a third of what it looked like.</li>
+      <li><b>Famous ideas fade.</b> The stock-timing ideas that passed are well known. Others may already be trading them away; one is visibly weakening.</li>
+      <li><b>Practice is two days old.</b> Nothing here is proof yet. The practice books need months before they mean anything.</li>
+      <li><b>Tests aren't markets.</b> We charge every test double the expected costs, but real trading can still surprise us.</li>
+    </ol>
   </div>
 </section>
 
@@ -274,16 +310,25 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
   </div>
 </section>
 
+<section class="logbook">
+  <div class="wrap">
+    <div class="eyebrow">Where we've been</div>
+    <h2 style="font-size:clamp(32px,5vw,52px);margin-top:14px">The Logbook</h2>
+    <p class="lede">Every turn of the road, dead ends included, kept so that whatever comes later, we remember how it was built.</p>
+    <ol class="log" id="log"></ol>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
-    <div class="eyebrow">Running right now</div>
-    <h2 style="font-size:clamp(32px,5vw,52px);margin-top:14px">Four practice books, every day</h2>
+    <div class="eyebrow">Where we're at</div>
+    <h2 style="font-size:clamp(32px,5vw,52px);margin-top:14px">Practice books, running every day</h2>
     <p class="lede">They run on their own server around the clock and check in with my phone twice a day. Day 2 of at least 90, so these numbers are a heartbeat, not a result yet.</p>
     <div class="books">
       <div class="book"><span class="live">Live · practice</span><h3>Crypto trend</h3><div class="eq num">$3,006.59</div><div class="chg up num">+0.22% since start</div><p>The Bitcoin and Ether system above, started with $3,000.</p></div>
       <div class="book"><span class="live">Live · practice</span><h3>Ether starter</h3><div class="eq num">$1,003.08</div><div class="chg up num">+0.31% since start</div><p>The version sized for a real $1,000 first account.</p></div>
       <div class="book"><span class="live">Live · practice</span><h3>Coin momentum</h3><div class="eq num">$4,997.08</div><div class="chg down num">−0.06% since start</div><p>Ranks 18 coins. Failed its fair re-test, so it's here to be watched, not trusted.</p></div>
-      <div class="book"><span class="live wait">Paper account</span><h3>ETF basket</h3><div class="eq num">Monthly</div><div class="chg num" style="color:var(--mist)">rebalances at month-end</div><p>A balanced basket of 11 stock, bond and gold funds for steadier income.</p></div>
+      <div class="book"><span class="live wait">Starts Oct 30</span><h3>ETF basket</h3><div class="eq num">Not yet</div><div class="chg num" style="color:var(--mist)">first trade at month-end</div><p>A balanced basket of 11 stock, bond and gold funds on a paper account. Ready, waiting for its first month-end.</p></div>
     </div>
     <p class="note">Practice-book figures as of the 2026-Oct-10 daily run.</p>
   </div>
@@ -291,7 +336,7 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
 
 <section>
   <div class="wrap">
-    <div class="eyebrow">Where it's going</div>
+    <div class="eyebrow">Where we're heading</div>
     <h2 style="font-size:clamp(32px,5vw,52px);margin-top:14px">The plan, one careful step at a time</h2>
     <div class="road">
       <div class="stop done"><div class="dot"></div><h3>Research engine</h3><p>Our own testing lab, with costs built in.</p></div>
@@ -320,11 +365,13 @@ const EXP = [
   ["2", "pass", "Bitcoin + Ether trend", "Follows the trend both ways and shrinks bets when prices swing. Our first survivor, now in practice."],
   ["11", "pass", "Ether alone, for a $1,000 account", "A narrow pass, but it fits a small first account with whole contracts."],
   ["19", "pass", "ETF basket with a trend switch", "Steps aside from funds in a downtrend. Cut the worst fall from 21% to 9%."],
-  ["10", "pass", "Balanced ETF basket", "Stocks, bonds, gold and more, weighted so each carries equal risk. Now on a paper account."],
+  ["10-NO", "pass", "Fill-timing check on the basket", "Re-ran the basket trading at the next morning's price, as it really would. Same result: it holds up."],
   ["16", "pass", "Buying S&P 500 dips in uptrends", "Beat simply holding the index, but the edge is fading. Going to paper trading."],
   ["17", "pass", "Month-end fund flows", "Big funds rebalance at month-end in a predictable way. Beat the index on risk-adjusted return."],
   ["18", "pass", "The two above, combined", "Best of the stock ideas so far. Next: a written plan for paper trading."],
-  ["6", "fail", "Ranking 18 coins by momentum", "Looked great, then failed a fair re-test that included coins that later died. A lesson in survivor bias."],
+  ["10", "fail", "Balanced ETF basket", "Passed 4 of 5 rules. We later changed the 5th rule and moved it to a paper account; the record still says failed."],
+  ["6", "fail", "Ranking 18 coins by momentum", "Passed at first, on a list of coins that survived. We caught the flaw ourselves."],
+  ["6b", "fail", "Same idea, fair re-test", "Included coins that later died. The edge vanished. A lesson in survivor bias."],
   ["1", "fail", "Currency trends and carry (27 versions)", "Two days of work, zero edge. Currencies are off the list unless a truly new idea comes along."],
   ["3", "fail", "Trend and rotation across stock ETFs", "No better than a plain 60/40 portfolio."],
   ["4", "fail", "Adding stocks and gold to the crypto trend", "The extra markets added nothing, even before costs."],
@@ -339,6 +386,20 @@ const EXP = [
   ["15", "fail", "Oil, metals and gas trends", "No edge since 2016, and the contracts are too big for now."],
   ["20", "next", "Fed-decision markets vs. T-bills", "Planned and pre-registered. Runs after the current work."],
 ];
+
+// ---- logbook: append new entries at the end; never edit or remove old ones
+const LOGBOOK = [
+  ["2026-Oct-10", "start", "Keel begins", "Started from a popular YouTube trading method. First lesson: it didn't survive a proper test."],
+  ["2026-Oct-10", "dead", "Currencies: 27 versions, no edge", "Two rounds of work on currency trading came to nothing. We wrote it off and moved on."],
+  ["2026-Oct-10", "win", "The first survivor", "A Bitcoin and Ether trend system passed every test. Its practice books started the same day."],
+  ["2026-Oct-10", "dead", "A run of dead ends", "Stock ETFs, extra markets, funding fees and US stock momentum all failed, one after another."],
+  ["2026-Oct-11", "fix", "We caught our own mistake", "An audit found that the systems' first weeks were scored unfairly. We re-ran everything. One result shrank: the Ether system's Sharpe ratio went from 1.37 to about 1.0."],
+  ["2026-Oct-11", "win", "Three stock-timing ideas pass", "Carefully, and flagged as well known and possibly fading. Next step for them is paper trading."],
+  ["2026-Oct-11", "fix", "A bug found before it mattered", "An independent code review found a flaw in the safety layer. Fixed, tested and running the same day. It had never been triggered."],
+  ["2026-Oct-11", "fix", "Growing pains", "The AI helper sat waiting hours for approvals that nobody was there to give. Tonight's job: fix the setup."],
+];
+document.getElementById("log").innerHTML = LOGBOOK.map(([d, k, t, p]) =>
+  `<li class="${k === "win" ? "win" : ""}"><div class="when"><span>${d}</span><span class="kind ${k}">${{ start: "Start", dead: "Dead end", win: "Milestone", fix: "Correction" }[k]}</span></div><h3>${t}</h3><p>${p}</p></li>`).join("");
 
 // ---- experiment cards
 const grid = document.getElementById("grid");
