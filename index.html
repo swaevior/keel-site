@@ -74,6 +74,17 @@ a { color: var(--brass); }
 .credit { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; color: var(--mist); font-size: 14px; }
 .credit b { color: var(--ink); font-weight: 600; }
 
+/* about */
+.about-card { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 32px; align-items: start; margin-top: 22px;
+  padding: 30px; border-radius: 18px; border: 1px solid rgba(226,180,92,.3);
+  background: radial-gradient(140% 120% at 0% 0%, rgba(226,180,92,.10), transparent 55%), var(--sea-2); }
+.about-card img { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--brass); object-fit: cover; }
+.about-h { font-size: clamp(32px, 4.6vw, 46px); line-height: 1.05; }
+.about-role { font: 500 12px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--brass); margin-top: 8px; }
+.about-card p { color: var(--mist); max-width: 64ch; margin: 18px 0 0; }
+.about-card p b { color: var(--ink); }
+@media (max-width: 600px) { .about-card { grid-template-columns: 1fr; gap: 18px; padding: 22px; } .about-card img { width: 96px; height: 96px; } }
+
 /* fine print */
 .caveats { list-style: none; counter-reset: c; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
 .caveats li { counter-increment: c; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding-block: 20px;
@@ -358,6 +369,20 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
       <div><h3>It compounds</h3><p>Small, steady gains on money that grows with time. The goal is income that keeps working while I don't.</p></div>
       <div><h3>It's cheap to run</h3><p>About $60 a month at most, tracked to the dollar, to be paid back from profits.</p></div>
       <div><h3>It's careful</h3><p>Nothing real is at risk until a system has proven itself twice: in testing and in practice.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap">
+    <div class="eyebrow">About</div>
+    <div class="about-card">
+      <img src="https://github.com/swaevior.png?size=240" alt="sb swae" width="120" height="120">
+      <div>
+        <h2 class="about-h">sb swae</h2>
+        <div class="about-role">Founder &amp; Principal · a project of <a href="https://anoloriya.com" rel="noopener">anoloriya</a></div>
+        <p><b>sb swae</b> is the Founder &amp; Principal of Keel, a project of anoloriya, the small-business consultancy swae has run since 2019. Before that, swae co-founded Gamer Ammo, Inc. and served as its President and CFO, running the back office of a 30-person company: payroll, compliance, contracts and the books. Years in security operations and event dispatch built the habits Keel runs on: plan for what can go wrong, write everything down, and stay calm when things move fast. A University of Michigan linguistics graduate, swae speaks Spanish fluently and volunteers in disaster relief with Team Rubicon.</p>
+      </div>
     </div>
   </div>
 </section>
