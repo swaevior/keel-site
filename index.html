@@ -90,6 +90,10 @@ a { color: var(--brass); }
 .byline { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); justify-self: start; }
 .byline img, .credit img { border-radius: 50%; border: 1.5px solid var(--brass); object-fit: cover; }
 .byline b { display: block; font: 500 16px/1.2 var(--body); }
+.cta { display: inline-flex; align-items: center; gap: 10px; justify-self: start; padding: 12px 18px; border-radius: 999px;
+  background: var(--brass); color: #0b1620; font: 600 15px/1.2 var(--body); text-decoration: none; }
+.cta:hover { filter: brightness(1.08); }
+.cta span { transition: transform .2s ease; } .cta:hover span { transform: translateX(3px); }
 .byline small { display: block; font: 400 12px/1.3 var(--mono); color: var(--mist); letter-spacing: .06em; }
 .credit { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; color: var(--mist); font-size: 14px; }
 .credit b { color: var(--ink); font-weight: 600; }
@@ -234,6 +238,7 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
     <div class="brand"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 12h24l-4 9H8z" fill="#e2b45c"/><path d="M16 21v8" stroke="#e2b45c" stroke-width="2.4" stroke-linecap="round"/><path d="M16 3v9" stroke="#9fb3c3" stroke-width="1.6"/></svg>KEEL · A SMALL TRADING LAB</div>
     <h1>Finding a real edge, <em>slowly</em> and on purpose.</h1>
     <p class="lede">Keel is a system I'm building to trade small amounts of money by rules instead of hunches. Most of the work is testing ideas until they break. The few that survive run with practice money first.</p>
+    <a class="cta" href="evenings.html">Why Keel is worth my evenings <span aria-hidden="true">&rarr;</span></a>
     <a class="byline" href="https://github.com/swaevior" rel="noopener"><img src="https://github.com/swaevior.png?size=96" alt="" width="40" height="40"><span><b>sb swae</b><small>Founder &amp; Principal · a practice of Andamento Studio</small></span></a>
     <div class="stats">
       <div class="stat"><b class="num" data-count="136">136</b><span>strategy versions tested and written down, failures included</span></div>

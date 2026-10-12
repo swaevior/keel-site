@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Keel Is Worth My Evenings</title>
+<meta name="description" content="What goes into Keel, what is already built, and what it could grow into.">
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a nautical chart, light by day and dark by night; one big interactive moment (the calculator) in the middle */
+:root {
+  --paper: #eef3f6; --panel: #ffffff; --line: #c9d6df; --ink: #12263a; --soft: #4d6478;
+  --signal: #e8692c; --deep: #1f4e79; --sea: #3f8f8a;
+  --display: "Gloock", "Georgia", serif; --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Martian Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #0e1924; --panel: #142433; --line: #24394d; --ink: #e8eef3; --soft: #9bb0c2;
+  --signal: #f08a52; --deep: #6fa8dc; --sea: #6cc4bc; color-scheme: dark; } }
+:root[data-theme="dark"] { --paper: #0e1924; --panel: #142433; --line: #24394d; --ink: #e8eef3; --soft: #9bb0c2;
+  --signal: #f08a52; --deep: #6fa8dc; --sea: #6cc4bc; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.6 var(--body);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px; background-attachment: fixed; }
+body::before { content: ""; position: fixed; inset: 0; background: var(--paper); opacity: .86; pointer-events: none; z-index: -1; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 20px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
+section { padding-block: 84px; }
+.tag { font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
+.lede { color: var(--soft); max-width: 60ch; font-size: 19px; }
+.h2 { font-size: clamp(32px, 5vw, 50px); line-height: 1.08; margin-top: 12px; }
+.num { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+
+/* hero */
+.hero { padding-block: 72px 56px; }
+.coord { font: 400 12px/1 var(--mono); color: var(--soft); display: flex; gap: 18px; flex-wrap: wrap; }
+.hero h1 { font-size: clamp(46px, 8.4vw, 98px); line-height: .98; margin-top: 26px; max-width: 13ch; }
+.hero h1 span { color: var(--signal); }
+.ledger { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 44px; border: 1.5px solid var(--ink); border-radius: 4px; background: var(--panel); }
+.ledger div { padding: 22px 22px 20px; min-width: 0; }
+.ledger div + div { border-left: 1.5px solid var(--ink); }
+.ledger .k { font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--soft); }
+.ledger .v { font: 400 clamp(30px, 4vw, 42px)/1.1 var(--display); margin-top: 12px; }
+.ledger p { margin: 8px 0 0; color: var(--soft); font-size: 15px; }
+@media (max-width: 720px) { .ledger { grid-template-columns: 1fr; } .ledger div + div { border-left: 0; border-top: 1.5px solid var(--ink); } }
+
+/* machine */
+.machine { margin-top: 42px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 28px 20px; overflow-x: auto; }
+.rail { display: grid; grid-template-columns: repeat(5, minmax(150px, 1fr)); gap: 0; position: relative; min-width: 760px; }
+.rail::before { content: ""; position: absolute; left: 6%; right: 6%; top: 34px; height: 2px; background: repeating-linear-gradient(90deg, var(--soft) 0 6px, transparent 6px 12px); opacity: .5; }
+.pulse { position: absolute; top: 28px; left: 6%; width: 14px; height: 14px; border-radius: 50%; background: var(--signal);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--signal) 22%, transparent); animation: travel 7s cubic-bezier(.6,0,.4,1) infinite; }
+@keyframes travel { 0% { left: 6%; } 18% { left: 26%; } 36% { left: 46%; } 54% { left: 66%; } 72%, 100% { left: 86%; } }
+.st { display: grid; justify-items: center; text-align: center; gap: 10px; padding-inline: 8px; position: relative; }
+.st .ic { width: 68px; height: 68px; border-radius: 50%; background: var(--paper); border: 2px solid var(--ink); display: grid; place-items: center; position: relative; z-index: 1; }
+.st .ic svg { width: 30px; height: 30px; }
+.st h3 { font-size: 20px; }
+.st p { margin: 0; color: var(--soft); font-size: 14px; line-height: 1.45; }
+.st.guard .ic { border-color: var(--signal); }
+.facts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.chip { font: 500 12px/1 var(--mono); padding: 9px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+.chip b { color: var(--sea); font-weight: 500; }
+
+/* calculator */
+.calc { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 0; background: var(--panel);
+  border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; }
+@media (max-width: 820px) { .calc { grid-template-columns: 1fr; } }
+.controls { padding: 26px 24px; display: grid; gap: 24px; align-content: start; border-right: 1.5px solid var(--ink); }
+@media (max-width: 820px) { .controls { border-right: 0; border-bottom: 1.5px solid var(--ink); } }
+.ctl label { display: flex; justify-content: space-between; font-weight: 600; font-size: 15px; }
+.ctl label output { font: 500 14px/1.6 var(--mono); color: var(--signal); }
+.ctl small { display: block; color: var(--soft); font-size: 13px; margin-top: 4px; }
+input[type=range] { width: 100%; margin-top: 10px; accent-color: var(--signal); }
+.seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; margin-top: 10px; }
+.seg button { font: 500 13px/1.2 var(--body); padding: 10px 6px; border: 0; background: transparent; color: var(--soft); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button span { display: block; font: 400 11px/1.3 var(--mono); opacity: .8; margin-top: 2px; }
+.out { padding: 26px 24px 18px; display: grid; gap: 14px; min-width: 0; }
+.out .result { font: 400 clamp(44px, 7vw, 76px)/1 var(--display); }
+.out .split { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: var(--soft); }
+.out .split i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+#proj { width: 100%; height: auto; display: block; }
+#proj text { fill: var(--soft); font: 10.5px var(--mono); }
+.goal { font-size: 15px; color: var(--ink); }
+.goal b { color: var(--sea); }
+.fine { color: var(--soft); font-size: 13px; margin-top: 14px; max-width: 80ch; }
+
+/* proof */
+.proof { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 38px; }
+.pf { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 22px; min-width: 0; }
+.pf .big { font: 400 46px/1 var(--display); color: var(--deep); }
+.pf h3 { font-size: 20px; margin-top: 12px; }
+.pf p { margin: 6px 0 0; color: var(--soft); font-size: 15px; }
+@media (max-width: 760px) { .proof { grid-template-columns: 1fr; } }
+
+/* week */
+.week { margin-top: 34px; display: grid; gap: 0; border-top: 1.5px solid var(--ink); }
+.wk { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 20px; padding-block: 18px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.wk .d { font: 500 12px/1.4 var(--mono); color: var(--signal); letter-spacing: .06em; text-transform: uppercase; }
+.wk h3 { font-size: 21px; } .wk p { margin: 4px 0 0; color: var(--soft); font-size: 15px; }
+@media (max-width: 560px) { .wk { grid-template-columns: 1fr; gap: 4px; } }
+
+.closing { text-align: left; }
+.closing h2 { font-size: clamp(34px, 5.6vw, 60px); line-height: 1.05; max-width: 18ch; }
+.closing h2 span { color: var(--signal); }
+footer { padding-block: 36px 60px; color: var(--soft); font-size: 13px; border-top: 1px solid var(--line); }
+@media (prefers-reduced-motion: reduce) { .pulse { animation: none; left: 86%; } }
+</style>
+
+<nav style="padding:18px 20px 0;max-width:1040px;margin:0 auto;font:500 13px/1 var(--mono)"><a href="./" style="color:var(--soft);text-decoration:none">&larr; Keel</a></nav>
+<section class="hero">
+  <div class="wrap">
+    <div class="coord"><span>KEEL · EST. 2026</span><span>LOG ENTRY 2026-OCT-11</span><span>HEADING: STEADY</span></div>
+    <h1>Why Keel is worth <span>my evenings.</span></h1>
+    <p class="lede" style="margin-top:22px">I'm building a small machine that trades by rules, runs by itself, and is careful with money. Here's what goes in, what's already built, and what it could turn into.</p>
+    <div class="ledger">
+      <div><div class="k">What goes in: time</div><div class="v">Evenings</div><p>Planning, reviewing and deciding. The machine does the testing and the night shifts.</p></div>
+      <div><div class="k">What goes in: money</div><div class="v num">≤ $60/mo</div><p>Server, data and the AI helper. A hard cap for year one, tracked to the dollar.</p></div>
+      <div><div class="k">What can come out</div><div class="v">Income</div><p>A system that keeps working while I sleep, once it has proven itself.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="tag">Already built</div>
+    <h2 class="h2">A machine with five stations</h2>
+    <p class="lede">Every day, market prices flow through the same steps. The fourth one can say no to anything.</p>
+    <div class="machine">
+      <div class="rail">
+        <span class="pulse" aria-hidden="true"></span>
+        <div class="st"><div class="ic"><svg viewBox="0 0 30 30" fill="none"><path d="M3 22l6-7 5 4 7-10 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Watch</h3><p>Collects prices and checks they're fresh and sane.</p></div>
+        <div class="st"><div class="ic"><svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="11" stroke="currentColor" stroke-width="2"/><path d="M15 15l6-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><h3>Forecast</h3><p>Scores each market from −20 to +20: how strong is the trend?</p></div>
+        <div class="st"><div class="ic"><svg viewBox="0 0 30 30" fill="none"><path d="M6 24V14M12 24V8M18 24V12M24 24V17" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div><h3>Size</h3><p>Turns the score into a bet size, smaller when markets get jumpy.</p></div>
+        <div class="st guard"><div class="ic"><svg viewBox="0 0 30 30" fill="none"><path d="M15 3l10 4v7c0 6-4 10-10 13C9 24 5 20 5 14V7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 15l4 4 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><h3>Safety check</h3><p>Separate rules that can veto or shrink any order. It never sees the forecast.</p></div>
+        <div class="st"><div class="ic"><svg viewBox="0 0 30 30" fill="none"><path d="M5 15h17M16 8l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Trade</h3><p>Places the orders. Practice money only, for now.</p></div>
+      </div>
+    </div>
+    <div class="facts">
+      <span class="chip"><b>24/7</b> on its own server</span>
+      <span class="chip"><b>3</b> practice books running</span>
+      <span class="chip"><b>380+</b> automated checks</span>
+      <span class="chip"><b>2×</b> a day it texts my phone</span>
+      <span class="chip"><b>1</b> kill switch</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="tag">Try it</div>
+    <h2 class="h2">What could it grow into?</h2>
+    <p class="lede">Slide the numbers. It shows how a small starting account could grow if the system earns what we plan for, with and without topping it up.</p>
+    <div class="calc">
+      <div class="controls">
+        <div class="ctl"><label for="start">Starting account <output id="o-start" class="num">$1,000</output></label><input type="range" id="start" min="500" max="5000" step="250" value="1000"></div>
+        <div class="ctl"><label for="dep">Added each month <output id="o-dep" class="num">$50</output></label><input type="range" id="dep" min="0" max="300" step="25" value="50"><small>Optional. The system has to make money without it.</small></div>
+        <div class="ctl"><label for="yrs">Years <output id="o-yrs" class="num">5</output></label><input type="range" id="yrs" min="1" max="10" step="1" value="5"></div>
+        <div class="ctl"><label>Yearly return</label>
+          <div class="seg" role="group" aria-label="Yearly return scenario">
+            <button type="button" id="r10" data-r="0.10" aria-pressed="false">Cautious<span>10% a year</span></button>
+            <button type="button" id="r15" data-r="0.15" aria-pressed="true">Planning<span>15% a year</span></button>
+            <button type="button" id="r27" data-r="0.268" aria-pressed="false">Target<span>2% a month</span></button>
+          </div></div>
+      </div>
+      <div class="out">
+        <div class="tag" id="o-label">After 5 years</div>
+        <div class="result num" id="o-total">$0</div>
+        <div class="split"><span><i style="background:var(--deep)"></i>You put in <b class="num" id="o-in">$0</b></span><span><i style="background:var(--signal)"></i>The system earned <b class="num" id="o-earn">$0</b></span></div>
+        <svg id="proj" viewBox="0 0 640 230" role="img" aria-label="Projected account value by year"></svg>
+        <div class="goal" id="o-goal"></div>
+      </div>
+    </div>
+    <p class="fine">An illustration, not a promise. Real returns go up and down from month to month, and some years lose money. The "Planning" case is the middle of the 10–20% a year we plan around; "Target" is the 2% a month we aim for on average.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="tag">Why I trust it (a little)</div>
+    <h2 class="h2">Careful by design</h2>
+    <div class="proof">
+      <div class="pf"><div class="big num">7 of 22</div><h3>experiments passed</h3><p>Most ideas fail when tested honestly. The pass rules are written down before each test.</p></div>
+      <div class="pf"><div class="big num">−28%</div><h3>worst fall, in testing</h3><p>vs −84% for just holding Bitcoin over the same nine years. A smoother ride on purpose.</p></div>
+      <div class="pf"><div class="big num">90+ days</div><h3>of practice first</h3><p>Real money waits until the practice record matches the tests. No shortcuts.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="tag">Coming up</div>
+    <h2 class="h2">What I'm working on next</h2>
+    <div class="week">
+      <div class="wk"><div class="d">This week</div><div><h3>Making the night shift smoother</h3><p>Fixing the settings that made the helper wait for my approval when nobody was there.</p></div></div>
+      <div class="wk"><div class="d">This week</div><div><h3>A new market to watch</h3><p>Recording prices on Kalshi's new crypto and gold contracts, which are small enough for a $1,000 account.</p></div></div>
+      <div class="wk"><div class="d">This week</div><div><h3>A steadier stock basket</h3><p>Running the "step aside in a downtrend" version beside the paper basket, to compare them side by side.</p></div></div>
+      <div class="wk"><div class="d">Next 3 months</div><div><h3>Practice, practice, practice</h3><p>Let the practice books build a record. Then decide about a real first $1,000.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <h2>Small, steady, and built to last. <span>Thanks for the evenings.</span></h2>
+  </div>
+</section>
+<footer><div class="wrap">Keel · numbers from the project's own records. Backtests are simulations; practice books use pretend money; the calculator is an illustration.</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const money = v => "$" + Math.round(v).toLocaleString("en-US");
+let rate = 0.15;
+
+function project(start, dep, yrs, r) {
+  const m = Math.pow(1 + r, 1 / 12) - 1, rows = [{ y: 0, total: start, inn: start }];
+  let total = start, inn = start;
+  for (let k = 1; k <= yrs * 12; k++) { total = total * (1 + m) + dep; inn += dep; if (k % 12 === 0) rows.push({ y: k / 12, total, inn }); }
+  return rows;
+}
+
+function hit(start, dep, r, goal) {
+  const m = Math.pow(1 + r, 1 / 12) - 1; let total = start;
+  for (let k = 1; k <= 360; k++) { total = total * (1 + m) + dep; if (total >= goal) return k; }
+  return null;
+}
+
+function draw(rows) {
+  const svg = $("proj"), W = 640, H = 230, L = 48, R = 10, T = 10, B = 26, n = rows.length;
+  const max = Math.max(...rows.map(r => r.total)) * 1.08, step = niceStep(max);
+  const bw = (W - L - R) / n * 0.62, x = i => L + (W - L - R) * (i + 0.5) / n, y = v => T + (H - T - B) * (1 - v / max);
+  let s = "";
+  for (let v = 0; v <= max; v += step) s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v >= 1000 ? "$" + Math.round(v / 1000) + "k" : "$" + v}</text>`;
+  rows.forEach((r, i) => {
+    const earn = Math.max(r.total - r.inn, 0);
+    s += `<rect class="b" x="${x(i) - bw / 2}" y="${y(r.inn)}" width="${bw}" height="${y(0) - y(r.inn)}" fill="var(--deep)" rx="2"/>`;
+    s += `<rect class="b" x="${x(i) - bw / 2}" y="${y(r.inn + earn)}" width="${bw}" height="${y(r.inn) - y(r.inn + earn)}" fill="var(--signal)" rx="2"/>`;
+    s += `<text x="${x(i)}" y="${H - 8}" text-anchor="middle">${r.y === 0 ? "now" : "yr " + r.y}</text>`;
+  });
+  if (5000 < max) s += `<line x1="${L}" x2="${W - R}" y1="${y(5000)}" y2="${y(5000)}" stroke="var(--sea)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${W - R}" y="${y(5000) - 6}" text-anchor="end" style="fill:var(--sea)">first goal $5,000</text>`;
+  svg.innerHTML = s;
+}
+
+function niceStep(max) { const raw = max / 4, p = Math.pow(10, Math.floor(Math.log10(raw))); return [1, 2, 2.5, 5, 10].map(k => k * p).find(k => k >= raw); }
+
+let shown = 0, anim;
+function tween(to) {
+  cancelAnimationFrame(anim);
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { shown = to; $("o-total").textContent = money(to); return; }
+  const from = shown, t0 = performance.now();
+  const f = t => { const p = Math.min(1, (t - t0) / 700), e = 1 - Math.pow(1 - p, 3); shown = from + (to - from) * e; $("o-total").textContent = money(shown); if (p < 1) anim = requestAnimationFrame(f); };
+  anim = requestAnimationFrame(f);
+}
+
+function update() {
+  const start = +$("start").value, dep = +$("dep").value, yrs = +$("yrs").value;
+  $("o-start").textContent = money(start); $("o-dep").textContent = money(dep); $("o-yrs").textContent = yrs;
+  const rows = project(start, dep, yrs, rate), last = rows[rows.length - 1];
+  $("o-label").textContent = `After ${yrs} year${yrs > 1 ? "s" : ""}`;
+  tween(last.total);
+  $("o-in").textContent = money(last.inn); $("o-earn").textContent = money(Math.max(last.total - last.inn, 0));
+  draw(rows);
+  const k = hit(start, dep, rate, 5000);
+  $("o-goal").innerHTML = start >= 5000 ? "Already at the first goal of <b>$5,000</b>." :
+    k ? `Reaches the first goal of <b>$5,000</b> in about <b>${k < 24 ? k + " months" : (k / 12).toFixed(1) + " years"}</b>.` : "Doesn't reach $5,000 within 30 years at this setting.";
+}
+
+["start", "dep", "yrs"].forEach(id => $(id).addEventListener("input", update));
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", x === b)); rate = +b.dataset.r; update();
+}));
+$("o-total").textContent = money(project(1000, 50, 5, rate).pop().total);
+shown = 0; update();
+</script>
+</body>
+</html>
