@@ -253,12 +253,12 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
   <div class="wrap">
     <div class="upd">
       <div class="upd-head"><span class="live">Latest from the lab</span><span class="upd-date">Monday, 2026-Oct-12</span></div>
-      <h2>A night spent checking the lab itself.</h2>
+      <h2>A second AI checks the first one's work.</h2>
       <ul>
-        <li><b>We audited our own methods,</b> not the strategies: are the tests sound, does the machine run unattended, are the goals measurable. The answer was "mostly, with gaps", and four of the gaps were fixed overnight.</li>
-        <li><b>Two quiet failures found in the plumbing.</b> The weekly off-site backup had stopped working after its first run, and the server's phone alerts had never reached the phone. The backup is repaired; the alerts need one setup step this morning.</li>
-        <li><b>A fairer luck test.</b> We recomputed how likely each result is to be luck, given everything we've tried (108 ideas so far). The Bitcoin and Ether trend system still holds up well. The small Ether-only version, the one sized for a $1,000 account, is weaker than we had thought.</li>
-        <li><b>A clear finish line for real money,</b> written down in numbers before the results exist: the practice books must match the tested system, stay inside its normal range and run cleanly for 90 days. Earliest: January 2027.</li>
+        <li><b>Rebuilt from the instructions alone.</b> A different AI (ChatGPT) was handed only our written rules, never our code, and asked to build the maths again. Five separate pieces came back matching ours to the last decimal: the trend signals, the position sizing, the portfolio simulator, the luck statistic and the book that combines the three systems.</li>
+        <li><b>It also found real faults.</b> A small hole in a safety check on the stock-ETF practice bot (it can't trigger today, and now has a fix waiting for approval), and twelve genuine gaps in our plan for what has to be true before real money. Nothing is running with them; they go into the plan first.</li>
+        <li><b>One of our "facts" was wrong.</b> The broker doesn't offer cash accounts, and the day-trading rule was lifted in June. It changes none of our strategies, but we corrected the record.</li>
+        <li><b>Win of the week:</b> the first combined practice book (equal parts of the three systems) is built and tested, and waits for its start date of 2 November. Still no real money, and earliest is January 2027.</li>
       </ul>
     </div>
   </div>
@@ -514,6 +514,10 @@ const LOGBOOK = [
   ["2026-Oct-11", "fix", "Growing pains", "The AI helper sat waiting hours for approvals that nobody was there to give. Tonight's job: fix the setup."],
   ["2026-Oct-12", "fix", "Checking the lab itself", "An overnight audit found two silent failures: the weekly off-site backup had stopped after its first run, and the server's phone alerts had never been sent. The backup is fixed; the alerts need one setup step."],
   ["2026-Oct-12", "fix", "A fairer luck test", "Recomputed across all 108 ideas tried. The main crypto system holds up; the small $1,000 Ether version is weaker than we thought."],
+  ["2026-Oct-12", "win", "A second AI rebuilds our maths", "ChatGPT was given only written rules and rebuilt five core calculations. All five matched ours to the last decimal, which is the independent check we wanted before any real money."],
+  ["2026-Oct-12", "fix", "Faults found by the reviewer", "A safety check on the stock-ETF practice bot let one kind of bad number through (it can't happen today), a cent was lost to rounding, and a tracking error in our own code was caught and fixed. The reviewer's severity labels ran high; the findings were real."],
+  ["2026-Oct-12", "fix", "A wrong fact, corrected", "The broker has no cash accounts, and the day-trading rule was lifted in June. Nothing we run depends on it, but we had stated it wrongly."],
+  ["2026-Oct-12", "fix", "A red team for the go-live plan", "Twelve valid gaps in the documents that decide when real money may trade, such as what happens if the server dies between cancelling one safety order and placing the next. Written up; a draft fix comes before anything is built."],
 ];
 document.getElementById("log").innerHTML = LOGBOOK.map(([d, k, t, p]) =>
   `<li class="${k === "win" ? "win" : ""}"><div class="when"><span>${d}</span><span class="kind ${k}">${{ start: "Start", dead: "Dead end", win: "Milestone", fix: "Correction" }[k]}</span></div><h3>${t}</h3><p>${p}</p></li>`).join("");
