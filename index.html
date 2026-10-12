@@ -66,6 +66,18 @@ a { color: var(--brass); }
 .err li b { color: var(--ink); font-weight: 600; }
 @media (max-width: 720px) { .errs { grid-template-columns: 1fr; } }
 
+/* latest update */
+.update { padding-block: 0 72px; }
+.upd { border: 1px solid rgba(226,180,92,.35); border-radius: 18px; padding: 28px 30px 20px;
+  background: linear-gradient(135deg, rgba(226,180,92,.08), transparent 55%), var(--sea-2); max-width: 860px; }
+.upd-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: center; }
+.upd-date { font: 400 12px/1 var(--mono); color: var(--mist); letter-spacing: .06em; }
+.upd h2 { font-size: clamp(28px, 4vw, 40px); margin-top: 16px; }
+.upd ul { list-style: none; margin: 16px 0 0; padding: 0; }
+.upd li { padding-block: 12px; border-top: 1px solid rgba(159,179,195,.12); color: var(--mist); font-size: 16px; }
+.upd li b { color: var(--ink); font-weight: 600; }
+@media (max-width: 560px) { .upd { padding: 22px 18px 12px; } }
+
 /* credits */
 .byline { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); justify-self: start; }
 .byline img, .credit img { border-radius: 50%; border: 1.5px solid var(--brass); object-fit: cover; }
@@ -220,6 +232,21 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
       <div class="stat"><b class="num" data-count="22">22</b><span>experiments, each with pass rules set before the test</span></div>
       <div class="stat"><b class="num" data-count="3">3</b><span>practice books running daily; a 4th starts at month-end</span></div>
       <div class="stat"><b class="num" data-count="380">380</b><span>automated tests that run on every change</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="update" id="latest">
+  <div class="wrap">
+    <div class="upd">
+      <div class="upd-head"><span class="live">Latest from the lab</span><span class="upd-date">Sunday, 2026-Oct-11</span></div>
+      <h2>A good, careful weekend.</h2>
+      <ul>
+        <li><b>The practice books are slightly up</b>, all three within a third of a percent of where they started. Too early to mean anything, and that's fine.</li>
+        <li><b>We found and fixed a bug before it ever mattered.</b> An outside-style review spotted a flaw in the safety layer; it was fixed, tested and running the same day.</li>
+        <li><b>Every change is now checked automatically</b> on GitHub before it counts.</li>
+        <li><b>Next up:</b> making the overnight work run smoothly without anyone needing to approve each step, and starting to record prices on a new market sized for small accounts.</li>
+      </ul>
     </div>
   </div>
 </section>
