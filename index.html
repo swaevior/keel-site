@@ -252,13 +252,13 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
 <section class="update" id="latest">
   <div class="wrap">
     <div class="upd">
-      <div class="upd-head"><span class="live">Latest from the lab</span><span class="upd-date">Sunday, 2026-Oct-11</span></div>
-      <h2>A good, careful weekend.</h2>
+      <div class="upd-head"><span class="live">Latest from the lab</span><span class="upd-date">Monday, 2026-Oct-12</span></div>
+      <h2>A night spent checking the lab itself.</h2>
       <ul>
-        <li><b>The practice books are slightly up</b> after Sunday's run, all three by less than 1% (see the numbers below). Too early to mean anything, and that's fine.</li>
-        <li><b>We found and fixed a bug before it ever mattered.</b> An independent code review spotted a flaw in the safety layer; it was fixed, tested and running the same day.</li>
-        <li><b>Every change is now checked automatically</b> on GitHub before it counts.</li>
-        <li><b>Next up:</b> making the overnight work run smoothly without anyone needing to approve each step, and starting to record prices on a new market sized for small accounts.</li>
+        <li><b>We audited our own methods,</b> not the strategies: are the tests sound, does the machine run unattended, are the goals measurable. The answer was "mostly, with gaps", and four of the gaps were fixed overnight.</li>
+        <li><b>Two quiet failures found in the plumbing.</b> The weekly off-site backup had stopped working after its first run, and the server's phone alerts had never reached the phone. The backup is repaired; the alerts need one setup step this morning.</li>
+        <li><b>A fairer luck test.</b> We recomputed how likely each result is to be luck, given everything we've tried (108 ideas so far). The Bitcoin and Ether trend system still holds up well. The small Ether-only version, the one sized for a $1,000 account, is weaker than we had thought.</li>
+        <li><b>A clear finish line for real money,</b> written down in numbers before the results exist: the practice books must match the tested system, stay inside its normal range and run cleanly for 90 days. Earliest: January 2027.</li>
       </ul>
     </div>
   </div>
@@ -512,6 +512,8 @@ const LOGBOOK = [
   ["2026-Oct-11", "win", "Three stock-timing ideas pass", "Carefully, and flagged as well known and possibly fading. Next step for them is paper trading."],
   ["2026-Oct-11", "fix", "A bug found before it mattered", "An independent code review found a flaw in the safety layer. Fixed, tested and running the same day. It had never been triggered."],
   ["2026-Oct-11", "fix", "Growing pains", "The AI helper sat waiting hours for approvals that nobody was there to give. Tonight's job: fix the setup."],
+  ["2026-Oct-12", "fix", "Checking the lab itself", "An overnight audit found two silent failures: the weekly off-site backup had stopped after its first run, and the server's phone alerts had never been sent. The backup is fixed; the alerts need one setup step."],
+  ["2026-Oct-12", "fix", "A fairer luck test", "Recomputed across all 108 ideas tried. The main crypto system holds up; the small $1,000 Ether version is weaker than we thought."],
 ];
 document.getElementById("log").innerHTML = LOGBOOK.map(([d, k, t, p]) =>
   `<li class="${k === "win" ? "win" : ""}"><div class="when"><span>${d}</span><span class="kind ${k}">${{ start: "Start", dead: "Dead end", win: "Milestone", fix: "Correction" }[k]}</span></div><h3>${t}</h3><p>${p}</p></li>`).join("");
