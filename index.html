@@ -66,6 +66,14 @@ a { color: var(--brass); }
 .err li b { color: var(--ink); font-weight: 600; }
 @media (max-width: 720px) { .errs { grid-template-columns: 1fr; } }
 
+/* why keel */
+.keel-grid { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 40px; align-items: center; margin-top: 36px; }
+.hull { width: 100%; max-width: 320px; height: auto; display: block; }
+.keel-points { list-style: none; margin: 0; padding: 0; display: grid; }
+.keel-points li { padding-block: 16px; border-top: 1px solid rgba(159,179,195,.14); color: var(--mist); font-size: 15.5px; }
+.keel-points li b { display: block; color: var(--ink); font: 500 20px/1.3 var(--display); margin-bottom: 4px; }
+@media (max-width: 760px) { .keel-grid { grid-template-columns: 1fr; gap: 20px; } .hull { max-width: 260px; } }
+
 /* latest update */
 .update { padding-block: 0 72px; }
 .upd { border: 1px solid rgba(226,180,92,.35); border-radius: 18px; padding: 28px 30px 20px;
@@ -275,6 +283,31 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
         </ul>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="why-keel">
+  <div class="wrap">
+    <div class="eyebrow">The name</div>
+    <h2 style="font-size:clamp(32px,5vw,52px);margin-top:14px">Why <em style="color:var(--brass)">Keel</em></h2>
+    <p class="lede">The keel is the spine along the bottom of a ship. Nobody sees it, and nothing works without it. Everything this project values, a keel already does.</p>
+    <div class="keel-grid">
+      <svg class="hull" viewBox="0 0 320 220" role="img" aria-label="Cross-section of a sailing hull with its keel below the waterline">
+        <line x1="10" y1="96" x2="310" y2="96" stroke="#6fd6c0" stroke-width="1.2" stroke-dasharray="5 5" opacity=".7"/>
+        <text x="306" y="88" text-anchor="end" fill="#9fb3c3" font-size="11" font-family="IBM Plex Mono, monospace">waterline</text>
+        <path d="M60 70 Q160 150 260 70 Z" fill="#163150" stroke="#9fb3c3" stroke-width="1.4"/>
+        <path d="M160 18 V70" stroke="#9fb3c3" stroke-width="2"/>
+        <path d="M150 116 L170 116 L176 196 L144 196 Z" fill="#e2b45c"/>
+        <text x="186" y="168" fill="#e2b45c" font-size="12" font-family="IBM Plex Mono, monospace">the keel</text>
+      </svg>
+      <ol class="keel-points">
+        <li><b>It keeps the ship upright.</b> Its weight, low and out of sight, rights the boat when a gust knocks it over. For us that's risk control: the first job is never to capsize, because one wipeout ends the voyage.</li>
+        <li><b>It holds a course against the wind.</b> Without a keel a boat just drifts where it's pushed. With one, it can sail steadily, even upwind. That's what rules do: they keep fear and greed from blowing us off course.</li>
+        <li><b>It's laid first.</b> Shipbuilding starts by laying the keel, and everything else is built on it. We built the testing, the safety checks and the records before risking a single dollar.</li>
+        <li><b>It works below the waterline.</b> The part that matters most is the part nobody sees. Most of this work is like that: tests, logs and failed ideas that never show up in a headline number.</li>
+      </ol>
+    </div>
+    <p class="note" style="font-size:15px;color:var(--mist)">And the goal, in the old phrase: to stay <i>on an even keel</i>. Steady, calm, and still afloat when the weather turns.</p>
   </div>
 </section>
 
