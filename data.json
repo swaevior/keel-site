@@ -1,0 +1,22 @@
+{
+ "books": {
+  "eth1k": {
+   "equity": 1009.0,
+   "pct": 0.9,
+   "start": 1000.0
+  },
+  "trend": {
+   "equity": 3026.27,
+   "pct": 0.88,
+   "start": 3000.0
+  },
+  "xsmom": {
+   "equity": 5008.23,
+   "pct": 0.16,
+   "start": 5000.0
+  }
+ },
+ "signal_day": "2026-10-11",
+ "updated": "2026-10-12",
+ "variants": 136
+}

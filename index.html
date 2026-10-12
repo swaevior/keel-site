@@ -372,12 +372,12 @@ footer { padding-block: 48px 64px; color: var(--faint); font-size: 13px; border-
     <h2 style="font-size:clamp(32px,5vw,52px);margin-top:14px">Practice books, running every day</h2>
     <p class="lede">They run on their own server around the clock and check in with my phone twice a day. Day 2 of at least 90, so these numbers are a heartbeat, not a result yet.</p>
     <div class="books">
-      <div class="book"><span class="live">Live · practice</span><h3>Crypto trend</h3><div class="eq num">$3,006.59</div><div class="chg up num">+0.22% since start</div><p>The Bitcoin and Ether system above, started with $3,000.</p></div>
-      <div class="book"><span class="live">Live · practice</span><h3>Ether starter</h3><div class="eq num">$1,003.08</div><div class="chg up num">+0.31% since start</div><p>The version sized for a real $1,000 first account.</p></div>
-      <div class="book"><span class="live">Live · practice</span><h3>Coin momentum</h3><div class="eq num">$4,997.08</div><div class="chg down num">−0.06% since start</div><p>Ranks 18 coins. Failed its fair re-test, so it's here to be watched, not trusted.</p></div>
+      <div class="book"><span class="live">Live · practice</span><h3>Crypto trend</h3><div class="eq num" data-eq="trend">$3,006.59</div><div class="chg up num" data-pct="trend">+0.22% since start</div><p>The Bitcoin and Ether system above, started with $3,000.</p></div>
+      <div class="book"><span class="live">Live · practice</span><h3>Ether starter</h3><div class="eq num" data-eq="eth1k">$1,003.08</div><div class="chg up num" data-pct="eth1k">+0.31% since start</div><p>The version sized for a real $1,000 first account.</p></div>
+      <div class="book"><span class="live">Live · practice</span><h3>Coin momentum</h3><div class="eq num" data-eq="xsmom">$4,997.08</div><div class="chg down num" data-pct="xsmom">−0.06% since start</div><p>Ranks 18 coins. Failed its fair re-test, so it's here to be watched, not trusted.</p></div>
       <div class="book"><span class="live wait">Starts Oct 30</span><h3>ETF basket</h3><div class="eq num">Not yet</div><div class="chg num" style="color:var(--mist)">first trade at month-end</div><p>A balanced basket of 11 stock, bond and gold funds on a paper account. Ready, waiting for its first month-end.</p></div>
     </div>
-    <p class="note">Practice-book figures as of the 2026-Oct-10 daily run.</p>
+    <p class="note">Practice-book figures as of the <span id="asof">2026-Oct-10</span> daily run.</p>
   </div>
 </section>
 
@@ -447,6 +447,22 @@ const EXP = [
   ["15", "fail", "Oil, metals and gas trends", "No edge since 2016, and the contracts are too big for now."],
   ["20", "next", "Fed-decision markets vs. T-bills", "Planned and pre-registered. Runs after the current work."],
 ];
+
+// ---- live numbers from data.json (built by tools/site_build.py); the figures in the HTML are the fallback
+(function () {
+  const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const prose = iso => { const [y, m, d] = iso.split("-"); return `${y}-${MON[+m - 1]}-${d}`; };
+  fetch("data.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(d => {
+    if (!d || !d.books) return;
+    for (const [k, b] of Object.entries(d.books)) {
+      const eq = document.querySelector(`[data-eq="${k}"]`), pc = document.querySelector(`[data-pct="${k}"]`);
+      if (eq) eq.textContent = "$" + b.equity.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (pc) { pc.textContent = `${b.pct >= 0 ? "+" : "−"}${Math.abs(b.pct).toFixed(2)}% since start`; pc.className = `chg num ${b.pct >= 0 ? "up" : "down"}`; }
+    }
+    if (d.signal_day) { const a = document.getElementById("asof"); if (a) a.textContent = prose(d.signal_day); }
+    if (d.updated) { const u = document.getElementById("updated"); if (u) u.textContent = prose(d.updated); }
+  }).catch(() => {});
+})();
 
 // ---- logbook: append new entries at the end; never edit or remove old ones
 const LOGBOOK = [
